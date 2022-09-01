@@ -91,12 +91,15 @@ def perceptron_through_the_origin(data, labels, params={}, hook=None):
     d, n = data.shape[0], data.shape[1]  
     th = np.zeros((d, 1))
     labels = labels.reshape((n, ))
+    k = 0
     for t in range(T):
         for i in range(n):
             x = data[:, i:i+1]
             y = labels[i]
-            if y*np.sum(th.T.dot(x) + th0) <= 0:
+            if y*np.sum(th.T.dot(x)) <= 0:
+                k+=1
                 th = th + x*y
+    print('errors:', k)
     return th
 
 
